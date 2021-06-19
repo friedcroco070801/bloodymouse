@@ -1,0 +1,16 @@
+#ifndef __DEFINITIONS_H__
+#define __DEFINITIONS_H__
+
+#define PIXEL_UNIT 64.0f
+
+#define TRANSITION_TIME 0.5f
+
+#define INTRO_LABEL_SIZE 30
+#define INTRO_LABEL_DURATION 3.0f
+
+#define MAIN_MENU_LABEL_SIZE 25
+
+#define MAIN_MOVING_DURATION 0.5f
+#define ENEMY_MOVING_DURATION 0.5f
+
+#endif // !__DEFINITIONS_H__#define __DEFINITIONS_H__
