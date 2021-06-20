@@ -5,10 +5,10 @@
 #define TRANSITION_TIME 0.5f
 
 // Physics body bitmask
-#define PIPE_BITMASK 0
-#define ENEMY_BITMASK 1
-#define DEATH_BITMASK 2
-#define DESTROY_BITMASK 3
+#define PIPE_BITMASK 1
+#define ENEMY_BITMASK 2
+#define DEATH_BITMASK 4
+#define DESTROY_BITMASK 8
 
 // Intro scene
 #define INTRO_LABEL_SIZE 30

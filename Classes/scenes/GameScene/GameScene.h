@@ -18,7 +18,10 @@ private:
     Pipe pipe;
 
     bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event);
+    bool onContactBegin(cocos2d::PhysicsContact& contact);
     void spawn(float dt);
+
+    int battery;
 };
 
 #endif // __GAME_SCENE_H__

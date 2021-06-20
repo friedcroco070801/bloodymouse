@@ -6,34 +6,38 @@
 USING_NS_CC;
 
 class Death {
-protected:
-    Sprite* node;
 public:
-    Death(float scale) {
+    static void drawDeath(Scene* scene, float x, float scale) {
         // Create sprite and scale
-        node = Sprite::create("sprites/enemy/death.png");
+        auto node = Sprite::create("sprites/enemy/death.png");
         node->setScale(scale);
+
+        auto visibleSize = Director::getInstance()->getVisibleSize();
+        Vec2 origin = Director::getInstance()->getVisibleOrigin();
+
+        // Set position
+        node->setPosition(Vec2(x, visibleSize.height / 4 + node->getContentSize().height * node->getScale() / 2 + origin.y));
+        CCLOG("Pos: %f %f\n", node->getPosition().x, node->getPosition().x);
+
+        // Draw node on scene
+        scene->addChild(node, 2);
+
+        // Set animation
+        node->runAction(MoveBy::create(ENEMY_APPROACHING_CYCLE, Vec2(0 - 1.5 * visibleSize.width, 0)));
+        CCLOG("After: %f %f\n", node->getPosition().x, node->getPosition().x);
 
         // Create physic body
         auto body = PhysicsBody::createBox(node->getContentSize());
         body->setDynamic(false);
         body->setCollisionBitmask(DEATH_BITMASK);
-        body->setContactTestBitmask(true);
+        body->setContactTestBitmask(DESTROY_BITMASK);
+        body->setCategoryBitmask(DEATH_BITMASK);
         node->setPhysicsBody(body); 
     }
-    void drawDeath(Scene* scene, float x) {
-        auto visibleSize = Director::getInstance()->getVisibleSize();
-        Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-        // Set position
-        node->setPosition(x, visibleSize.height / 4 + node->getContentSize().height * node->getScale() / 2 + origin.y);
-
-        // Set animation
-        node->runAction(MoveBy::create(ENEMY_APPROACHING_CYCLE, Vec2(0 - 1.5 * visibleSize.width, 0)));
-
-        // Draw node on scene
-        scene->addChild(node);
-    }
+    // static void release(Node* node) {
+    //     node->getParent()->removeChild(node);
+    // }
 };
 
 #endif // !__DEATH_H__

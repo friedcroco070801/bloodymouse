@@ -11,7 +11,8 @@ Pipe::Pipe(): isCrushing(false) {
     auto body = PhysicsBody::createBox(node->getContentSize());
     body->setDynamic(false);
     body->setCollisionBitmask(PIPE_BITMASK);
-    body->setContactTestBitmask(true);
+	body->setContactTestBitmask(ENEMY_BITMASK);
+    body->setCategoryBitmask(PIPE_BITMASK);
     node->setPhysicsBody(body);   
 }
 

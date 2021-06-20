@@ -4,7 +4,7 @@
 
 USING_NS_CC;
 
-Enemy::Enemy(std::string filename) {
+Enemy::Enemy(const char* filename) {
     // Create sprite
     node = Sprite::create(filename);
     node->setScale(CCRANDOM_0_1() + 0.5);
@@ -13,7 +13,8 @@ Enemy::Enemy(std::string filename) {
     auto body = PhysicsBody::createBox(node->getContentSize());
     body->setDynamic(false);
     body->setCollisionBitmask(ENEMY_BITMASK);
-    body->setContactTestBitmask(true);
+    body->setContactTestBitmask(DESTROY_BITMASK | PIPE_BITMASK);
+    body->setCategoryBitmask(ENEMY_BITMASK);
     node->setPhysicsBody(body);   
 }
 
@@ -37,8 +38,12 @@ void Enemy::drawEnemy(Scene* scene, ActionInterval* action, Animate* animate) {
     scene->addChild(node);
 }
 
-void Enemy::die() {
-    Death(node->getScale()).drawDeath((Scene *) node->getParent(), node->getPositionX());
-    node->getParent()->removeChild(node);
-}
+// void Enemy::die(Sprite* node) {
+//     Death(node->getScaleY()).drawDeath((Scene *) node->getParent(), node->getPositionX());
+//     node->getParent()->removeChild(node);
+// }
+
+// void Enemy::release(Node* node) {
+//     node->getParent()->removeChild(node);
+// }
 

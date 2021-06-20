@@ -7,9 +7,10 @@ class Enemy {
 protected:
     cocos2d::Sprite* node;
 public:
-    Enemy(std::string filename);
+    Enemy(const char* filename);
     void drawEnemy(cocos2d::Scene* scene, cocos2d::ActionInterval* action, cocos2d::Animate* animate);
-    void die();
+    // static void die(cocos2d::Sprite* node);
+    // static void release(cocos2d::Node* node);
 };
 
 #endif // !__PIPE_H__

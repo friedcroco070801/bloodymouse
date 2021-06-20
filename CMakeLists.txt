@@ -63,6 +63,9 @@ list(APPEND GAME_SOURCE
      Classes/scenes/GameScene/components/background/Background.cpp
      Classes/scenes/GameScene/components/pipe/Pipe.cpp
      Classes/scenes/GameScene/components/enemy/Enemy.cpp
+     Classes/scenes/GameScene/components/enemy/EnemyTypes.cpp
+     Classes/scenes/GameScene/components/battery/Battery.cpp
+     Classes/scenes/GameScene/components/score/Score.cpp
      )
 list(APPEND GAME_HEADER
      Classes/AppDelegate.h
@@ -77,6 +80,8 @@ list(APPEND GAME_HEADER
      Classes/scenes/GameScene/components/enemy/EnemyTypes.h
      Classes/scenes/GameScene/components/enemy/EnemyDefinitions.h
      Classes/scenes/GameScene/components/enemy/Death.h
+     Classes/scenes/GameScene/components/battery/Battery.h
+     Classes/scenes/GameScene/components/score/Score.h
      )
 
 if(ANDROID)
