@@ -12,6 +12,9 @@ public:
     
     // implement the "static create()" method manually
     CREATE_FUNC(MainMenuScene);
+
+private:
+    void gotoGameScene(float);
 };
 
 #endif // __MAIN_MENU_SCENE_H__

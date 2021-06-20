@@ -28,7 +28,7 @@ bool SplashScene::init()
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
     // Add introduction of game
-    auto intro = Label::createWithTTF("Depressed, Kodoku descends on the Black.", "fonts/FreePixel.ttf", INTRO_LABEL_SIZE);
+    auto intro = Label::createWithTTF("A game by friedcroco for MashUp Game Jam 2", "fonts/FreePixel.ttf", INTRO_LABEL_SIZE);
     intro->setPosition(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y);
     this->addChild(intro);
 

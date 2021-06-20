@@ -59,7 +59,9 @@ list(APPEND GAME_SOURCE
      Classes/AppDelegate.cpp
      Classes/scenes/SplashScene/SplashScene.cpp
      Classes/scenes/MainMenuScene/MainMenuScene.cpp
-     Classes/characters/Character.cpp
+     Classes/scenes/GameScene/GameScene.cpp
+     Classes/scenes/GameScene/components/background/Background.cpp
+     Classes/scenes/GameScene/components/pipe/Pipe.cpp
      )
 list(APPEND GAME_HEADER
      Classes/AppDelegate.h
@@ -67,7 +69,9 @@ list(APPEND GAME_HEADER
      Classes/SceneManager.h
      Classes/scenes/SplashScene/SplashScene.h
      Classes/scenes/MainMenuScene/MainMenuScene.h
-     Classes/characters/Character.h
+     Classes/scenes/GameScene/GameScene.h
+     Classes/scenes/GameScene/components/background/Background.h
+     Classes/scenes/GameScene/components/pipe/Pipe.h
      )
 
 if(ANDROID)

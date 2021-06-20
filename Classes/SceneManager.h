@@ -5,6 +5,7 @@
 #include "Definitions.h"
 #include "scenes/SplashScene/SplashScene.h"
 #include "scenes/MainMenuScene/MainMenuScene.h"
+#include "scenes/GameScene/GameScene.h"
 
 #define CHANGE_SCENE(scene) SceneManager::replaceScene(scene::createScene())
 #define CHANGE_SCENE_FADING(scene) SceneManager::replaceSceneWithFading(scene::createScene())
