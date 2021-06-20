@@ -6,6 +6,9 @@
 
 // Physics body bitmask
 #define PIPE_BITMASK 0
+#define ENEMY_BITMASK 1
+#define DEATH_BITMASK 2
+#define DESTROY_BITMASK 3
 
 // Intro scene
 #define INTRO_LABEL_SIZE 30
@@ -20,9 +23,10 @@
 #define BACKGROUND_1_CYCLE 32.0f
 #define BACKGROUND_2_CYCLE 16.0f
 #define GROUND_CYCLE 8.0f
-
 // - Pipe
 #define PIPE_CRUSHING_CYCLE 0.1f
+// - Enemy
+#define ENEMY_APPROACHING_CYCLE 12.0f
 
 
 #endif // !__DEFINITIONS_H__#define __DEFINITIONS_H__

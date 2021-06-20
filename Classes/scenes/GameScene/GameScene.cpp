@@ -3,6 +3,7 @@
 #include "Definitions.h"
 #include "components/background/Background.h"
 #include "components/pipe/Pipe.h"
+#include "components/enemy/EnemyTypes.h"
 
 USING_NS_CC;
 
@@ -52,10 +53,17 @@ bool GameScene::init()
     touchListener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
     Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
 
+    // Schedule 
+    this->schedule(CC_SCHEDULE_SELECTOR(GameScene::spawn), 1.0f);
+
     return true;
 }
 
 bool GameScene::onTouchBegan(Touch* touch, Event* event) {
     pipe.crush();
     return true;
+}
+
+void GameScene::spawn(float) {
+    EnemyMaapj().drawEnemy(this);
 }

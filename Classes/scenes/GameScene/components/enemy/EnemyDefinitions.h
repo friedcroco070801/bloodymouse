@@ -1,0 +1,9 @@
+#ifndef __ENEMY_DEFINITIONS_H__
+#define __ENEMY_DEFINITIONS_H__
+
+// Enemy.01: Mr.Maapj
+#define MAAPJ_ANIMATION_SPEED 0.25f
+#define MAAPJ_MOVING_CYCLE 0.1f
+#define MAAPJ_WAITING_CYCLE 2.0f
+
+#endif // !__ENEMY_DEFINITIONS_H__

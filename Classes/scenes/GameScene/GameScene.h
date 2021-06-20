@@ -3,6 +3,7 @@
 
 #include "cocos2d.h"
 #include "components/pipe/Pipe.h"
+#include "components/enemy/Enemy.h"
 
 class GameScene : public cocos2d::Scene
 {
@@ -15,7 +16,9 @@ public:
     CREATE_FUNC(GameScene);
 private:
     Pipe pipe;
+
     bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event);
+    void spawn(float dt);
 };
 
 #endif // __GAME_SCENE_H__
