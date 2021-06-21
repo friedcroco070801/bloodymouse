@@ -10,6 +10,12 @@
 
 USING_NS_CC;
 
+//#define AUDIO_MUSIC 1
+#ifdef AUDIO_MUSIC
+#include "editor-support/cocostudio/SimpleAudioEngine.h"
+using namespace CocosDenshion;
+#endif // AUDIO_MUSIC
+
 Scene* GameScene::createScene()
 {
     // Create physics world
@@ -137,6 +143,11 @@ bool GameScene::onContactBegin(PhysicsContact& contact) {
         auto poka = (bitmaskA == ENEMY_BITMASK) ? colliderA->getNode() : colliderB->getNode();
         poka->removeFromParent();
         battery--;
+
+        #ifdef AUDIO_MUSIC
+        SimpleAudioEngine::getInstance()->playEffect("audio/battery.ogg");
+        #endif // DEBUG
+
         Battery::drawBattery(this, battery);
         if (battery <= 0) {
             auto def = UserDefault::getInstance();

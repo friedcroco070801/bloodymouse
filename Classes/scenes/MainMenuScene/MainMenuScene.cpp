@@ -5,6 +5,12 @@
 
 USING_NS_CC;
 
+//#define AUDIO_MUSIC 1
+#ifdef AUDIO_MUSIC
+#include "editor-support/cocostudio/SimpleAudioEngine.h"
+using namespace CocosDenshion;
+#endif // AUDIO_MUSIC
+
 Scene* MainMenuScene::createScene()
 {
     return MainMenuScene::create();
@@ -27,6 +33,10 @@ bool MainMenuScene::init()
 
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
+
+    #ifdef AUSIO_MUSIC
+    SimpleAudioEngine::getInstance()->playEffect("audio/battery.ogg");
+    #endif // DEBUG
 
     // Draw background
     auto ground = Sprite::create("sprites/ground.png");
