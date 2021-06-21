@@ -40,6 +40,37 @@ bool GameOverScene::init()
     pipe->setPosition(visibleSize.width / 4 + origin.x, visibleSize.height / 2 + pipe->getContentSize().height / 2 + origin.y);
     this->addChild(pipe);
 
+    // Draw highscore
+    auto highscore = Sprite::create("sprites/highscore.png");
+    highscore->setPosition(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y);
+    this->addChild(highscore);
+
+    // Draw highscore text
+    auto def = UserDefault::getInstance();
+    auto sc = def->getIntegerForKey("SCORE", 0);
+    auto hisc = def->getIntegerForKey("HIGHSCORE", 0);
+    hisc = (hisc < sc) ? sc : hisc;
+    def->setIntegerForKey("SCORE", 0);
+    def->setIntegerForKey("HIGHSCORE", hisc);
+
+    auto yourscoretext = Label::createWithTTF("YOUR SCORE", "fonts/FreePixel.ttf", GAME_OVER_LABEL_SIZE);
+    yourscoretext->setPosition(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y + highscore->getContentSize().height / 11 * 3);
+    yourscoretext->setTextColor(Color4B(255, 0, 0, 255));
+    this->addChild(yourscoretext);
+
+    auto score = Label::createWithTTF(std::to_string(sc), "fonts/FreePixel.ttf", GAME_OVER_LABEL_SIZE);
+    score->setPosition(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y + highscore->getContentSize().height / 11);
+    this->addChild(score);
+
+    auto highscoretext = Label::createWithTTF("HIGH SCORE", "fonts/FreePixel.ttf", GAME_OVER_LABEL_SIZE);
+    highscoretext->setPosition(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y - highscore->getContentSize().height / 11);
+    highscoretext->setTextColor(Color4B(255, 0, 0, 255));
+    this->addChild(highscoretext);
+
+    auto highscorenum = Label::createWithTTF(std::to_string(hisc), "fonts/FreePixel.ttf", GAME_OVER_LABEL_SIZE);
+    highscorenum->setPosition(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y - highscore->getContentSize().height / 11 * 3);
+    this->addChild(highscorenum);
+
     // Draw instruction
     auto intstruct = Label::createWithTTF("Press ENTER to return to replay...", "fonts/FreePixel.ttf", MAIN_MENU_LABEL_SIZE);
     intstruct->setPosition(visibleSize.width / 2 + origin.x, ground->getContentSize().height / 2 + origin.y);

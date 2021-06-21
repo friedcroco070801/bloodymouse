@@ -10,7 +10,7 @@ public:
     static void drawDeath(Scene* scene, float x, float scale) {
         // Create sprite and scale
         auto node = Sprite::create("sprites/enemy/death.png");
-        //node->setScale(scale);
+        node->setScale(scale);
 
         auto visibleSize = Director::getInstance()->getVisibleSize();
         Vec2 origin = Director::getInstance()->getVisibleOrigin();

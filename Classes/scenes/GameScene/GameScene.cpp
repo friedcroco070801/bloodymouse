@@ -137,6 +137,8 @@ bool GameScene::onContactBegin(PhysicsContact& contact) {
         battery--;
         Battery::drawBattery(this, battery);
         if (battery <= 0) {
+            auto def = UserDefault::getInstance();
+            def->setIntegerForKey("SCORE", score);
             CHANGE_SCENE_FADING(GameOverScene);
         }
 		CCLOG("Destroy ENEMY");

@@ -2,6 +2,7 @@
 #define __DEFINITIONS_H__
 
 // General
+#define TO_STRINGG(num) #num
 #define TRANSITION_TIME 0.5f
 
 // Physics body bitmask
@@ -32,5 +33,8 @@
 #define GAME_LABEL_SIZE 40
 #define GAME_HIGHLIGHT_LABEL_SIZE 60
 #define TYPER_SPACING 20
+
+// Game over
+#define GAME_OVER_LABEL_SIZE 40
 
 #endif // !__DEFINITIONS_H__#define __DEFINITIONS_H__
