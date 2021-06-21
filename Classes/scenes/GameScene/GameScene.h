@@ -21,11 +21,16 @@ private:
     // bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event);
     bool onContactBegin(cocos2d::PhysicsContact& contact);
     void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
-    void spawn(float dt);
+    void spawn1(float dt);
+    void spawn2(float dt);
+    void spawn3(float dt);
+    void spawn4(float dt);
+    void spawn5(float dt);
+    void nextSpawn();
 
     int battery;
     int score;
-
+    int enemyTypes;
     Typer typer;
 };
 

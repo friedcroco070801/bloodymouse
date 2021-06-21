@@ -14,7 +14,7 @@ Scene* GameScene::createScene()
 {
     // Create physics world
     auto world = Scene::createWithPhysics();
-    world->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+    world->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_NONE);
     world->getPhysicsWorld()->setGravity(Vec2(0.0f, 0.0f));
 
     // Create scene
@@ -102,7 +102,8 @@ bool GameScene::init()
     Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(keyEscListener, this);
 
     // Schedule 
-    this->schedule(CC_SCHEDULE_SELECTOR(GameScene::spawn), 1.0f);
+    enemyTypes = 1;
+    this->schedule(CC_SCHEDULE_SELECTOR(GameScene::spawn1), 0.3f);
 
     return true;
 }
@@ -128,6 +129,7 @@ bool GameScene::onContactBegin(PhysicsContact& contact) {
         [=](){Death::drawDeath(this, x, scale);}();
         score++;
         Score::drawScore(this, score);
+        nextSpawn();
     }
 
     // Case destroyer and enemy collision
@@ -162,6 +164,45 @@ void GameScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event) {
     }
 }
 
-void GameScene::spawn(float) {
-    EnemyMaapj().drawEnemy(this);
+void GameScene::spawn1(float) {
+    if (CCRANDOM_0_1() < 0.2f) EnemyMaapj().drawEnemy(this);
+}
+
+void GameScene::spawn2(float) {
+    if (CCRANDOM_0_1() < 0.2f) EnemyMawaru().drawEnemy(this);
+}
+
+void GameScene::spawn3(float) {
+    if (CCRANDOM_0_1() < 0.2f) EnemyFeng().drawEnemy(this);
+}
+
+void GameScene::spawn4(float) {
+    if (CCRANDOM_0_1() < 0.2f) EnemyRama().drawEnemy(this);
+}
+
+void GameScene::spawn5(float) {
+    if (CCRANDOM_0_1() < 0.2f) EnemyZaba().drawEnemy(this);
+}
+
+void GameScene::nextSpawn() {
+    if (score >= 15 && enemyTypes == 1) {
+        enemyTypes++;
+        this->schedule(CC_SCHEDULE_SELECTOR(GameScene::spawn2), 0.353f);
+        return;
+    }
+    if (score >= 35 && enemyTypes == 2) {
+        enemyTypes++;
+        this->schedule(CC_SCHEDULE_SELECTOR(GameScene::spawn3), 0.403f);
+        return;
+    }
+    if (score >= 60 && enemyTypes == 3) {
+        enemyTypes++;
+        this->schedule(CC_SCHEDULE_SELECTOR(GameScene::spawn4), 0.453f);
+        return;
+    }
+    if (score >= 100 && enemyTypes == 4) {
+        enemyTypes++;
+        this->schedule(CC_SCHEDULE_SELECTOR(GameScene::spawn5), 0.503f);
+        return;
+    }
 }
