@@ -28,5 +28,9 @@
 // - Enemy
 #define ENEMY_APPROACHING_CYCLE 12.0f
 
+// Game scene
+#define GAME_LABEL_SIZE 40
+#define GAME_HIGHLIGHT_LABEL_SIZE 60
+#define TYPER_SPACING 20
 
 #endif // !__DEFINITIONS_H__#define __DEFINITIONS_H__

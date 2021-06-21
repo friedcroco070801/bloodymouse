@@ -1,24 +1,24 @@
-#include "MainMenuScene.h"
+#include "GameOverScene.h"
 #include "SceneManager.h"
-#include "../GameScene/components/background/Background.h"
 #include "Definitions.h"
+#include "../GameScene/components/background/Background.h"
 
 USING_NS_CC;
 
-Scene* MainMenuScene::createScene()
+Scene* GameOverScene::createScene()
 {
-    return MainMenuScene::create();
+    return GameOverScene::create();
 }
 
 // Print useful error message instead of segfaulting when files are not there.
 static void problemLoading(const char* filename)
 {
     printf("Error while loading: %s\n", filename);
-    printf("Depending on how you compiled you might have to add 'Resources/' in front of filenames in MainMenuScene.cpp\n");
+    printf("Depending on how you compiled you might have to add 'Resources/' in front of filenames in GameOverScene.cpp\n");
 }
 
 // on "init" you need to initialize your instance
-bool MainMenuScene::init()
+bool GameOverScene::init()
 {
     if ( !Scene::init() )
     {
@@ -40,30 +40,25 @@ bool MainMenuScene::init()
     pipe->setPosition(visibleSize.width / 4 + origin.x, visibleSize.height / 2 + pipe->getContentSize().height / 2 + origin.y);
     this->addChild(pipe);
 
-    // Draw title
-    auto title = Sprite::create("sprites/title.png");
-    title->setPosition(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y);
-    this->addChild(title);
-
     // Draw instruction
-    auto intstruct = Label::createWithTTF("Start crushing mice with ENTER!", "fonts/FreePixel.ttf", MAIN_MENU_LABEL_SIZE);
+    auto intstruct = Label::createWithTTF("Press ENTER to return to replay...", "fonts/FreePixel.ttf", MAIN_MENU_LABEL_SIZE);
     intstruct->setPosition(visibleSize.width / 2 + origin.x, ground->getContentSize().height / 2 + origin.y);
     this->addChild(intstruct); 
 
     // Listen to keyboard Esc
     auto keyEscListener = EventListenerKeyboard::create();
-    keyEscListener->onKeyPressed = CC_CALLBACK_2(MainMenuScene::onKeyPressed, this);
+    keyEscListener->onKeyPressed = CC_CALLBACK_2(GameOverScene::onKeyPressed, this);
     Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(keyEscListener, this);
 
     return true;
 }
 
-void MainMenuScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event) {
+void GameOverScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event) {
     if (keyCode == EventKeyboard::KeyCode::KEY_ENTER) {
-        gotoGameScene();
+        gotoMainMenuScene();
     }
 }
 
-void MainMenuScene::gotoGameScene() {
-    CHANGE_SCENE_FADING(GameScene);
+void GameOverScene::gotoMainMenuScene() {
+    CHANGE_SCENE_FADING(MainMenuScene);
 }

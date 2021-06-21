@@ -6,6 +6,7 @@
 #include "components/enemy/EnemyTypes.h"
 #include "components/enemy/Death.h"
 #include "components/battery/Battery.h"
+#include "components/score/Score.h"
 
 USING_NS_CC;
 
@@ -42,12 +43,19 @@ bool GameScene::init()
 
     // Initialize private properties
     battery = 4;
+    score = 0;
 
     // Draw moving background
     Background("sprites/back0.png").drawBackground(this, visibleSize.width + origin.x, visibleSize.height / 2 + origin.y, -3, BACKGROUND_0_CYCLE);
     Background("sprites/back1.png").drawBackground(this, visibleSize.width + origin.x, visibleSize.height / 2 + origin.y, -2, BACKGROUND_1_CYCLE);
     Background("sprites/back2.png").drawBackground(this, visibleSize.width + origin.x, visibleSize.height / 2 + origin.y, -1, BACKGROUND_2_CYCLE);
     Background("sprites/ground.png").drawBackground(this, visibleSize.width + origin.x, visibleSize.height / 8 + origin.y, 0, GROUND_CYCLE);
+
+    // Draw pretext
+    auto pretext = Sprite::create("sprites/pretext.png");
+    pretext->setOpacity(205);
+    pretext->setPosition(visibleSize.width / 2 + origin.x, visibleSize.height / 8 + origin.y);
+    this->addChild(pretext);
 
     // Draw pipe
     auto pipeSprite = Sprite::create("sprites/pipe2.png");
@@ -67,16 +75,31 @@ bool GameScene::init()
     // Draw a battery
     Battery::drawBattery(this, battery);
 
-    // Listen to touch
-    auto touchListener = EventListenerTouchOneByOne::create();
-    touchListener->setSwallowTouches(true);
-    touchListener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
-    Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
+    // Draw a score
+    Score::drawScore(this, score);
+
+    // Draw a typer
+    auto typerInstruction = Label::createWithTTF("TYPE to crush mice!", "fonts/FreePixel.ttf", GAME_LABEL_SIZE);
+    typerInstruction->setPosition(visibleSize.width / 5 + origin.x, visibleSize.height / 8 + origin.y);
+    this->addChild(typerInstruction);
+
+    typer.drawTyper(this);
+
+    // // Listen to touch
+    // auto touchListener = EventListenerTouchOneByOne::create();
+    // touchListener->setSwallowTouches(true);
+    // touchListener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
+    // Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
 
     // Listen to contact
     auto contactListener = EventListenerPhysicsContact::create();
     contactListener->onContactBegin = CC_CALLBACK_1(GameScene::onContactBegin, this);
     Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
+
+    // Listen to keyboard Esc
+    auto keyEscListener = EventListenerKeyboard::create();
+    keyEscListener->onKeyPressed = CC_CALLBACK_2(GameScene::onKeyPressed, this);
+    Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(keyEscListener, this);
 
     // Schedule 
     this->schedule(CC_SCHEDULE_SELECTOR(GameScene::spawn), 1.0f);
@@ -84,10 +107,10 @@ bool GameScene::init()
     return true;
 }
 
-bool GameScene::onTouchBegan(Touch* touch, Event* event) {
-    pipe.crush();
-    return true;
-}
+// bool GameScene::onTouchBegan(Touch* touch, Event* event) {
+//     pipe.crush();
+//     return true;
+// }
 
 // Physical contact listener
 bool GameScene::onContactBegin(PhysicsContact& contact) {
@@ -99,8 +122,12 @@ bool GameScene::onContactBegin(PhysicsContact& contact) {
     // Case pipe and enemy collision
     if ((bitmaskA == PIPE_BITMASK && bitmaskB == ENEMY_BITMASK) || (bitmaskB == PIPE_BITMASK && bitmaskA == ENEMY_BITMASK)) {
         auto enemy = ((bitmaskA == ENEMY_BITMASK) ? colliderA->getNode() : colliderB->getNode());
-        [this, &enemy](){Death::drawDeath(this, enemy->getPosition().x, enemy->getScaleY());}();
+        auto x = enemy->getPosition().x;
+        auto scale = enemy->getScaleY();
         enemy->removeFromParent();
+        [=](){Death::drawDeath(this, x, scale);}();
+        score++;
+        Score::drawScore(this, score);
     }
 
     // Case destroyer and enemy collision
@@ -109,6 +136,9 @@ bool GameScene::onContactBegin(PhysicsContact& contact) {
         poka->removeFromParent();
         battery--;
         Battery::drawBattery(this, battery);
+        if (battery <= 0) {
+            CHANGE_SCENE_FADING(GameOverScene);
+        }
 		CCLOG("Destroy ENEMY");
     }
 
@@ -122,7 +152,14 @@ bool GameScene::onContactBegin(PhysicsContact& contact) {
     return true;
 }
 
+void GameScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event) {
+    if ((int) keyCode == (int) EventKeyboard::KeyCode::KEY_A + typer.getFirstChar() - 'a') {
+        typer.updateTyper();
+        typer.drawTyper(this);
+        pipe.crush();
+    }
+}
+
 void GameScene::spawn(float) {
     EnemyMaapj().drawEnemy(this);
-    // Death(1.0f).drawDeath(this, 700);
 }

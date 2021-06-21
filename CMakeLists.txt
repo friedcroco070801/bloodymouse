@@ -66,6 +66,8 @@ list(APPEND GAME_SOURCE
      Classes/scenes/GameScene/components/enemy/EnemyTypes.cpp
      Classes/scenes/GameScene/components/battery/Battery.cpp
      Classes/scenes/GameScene/components/score/Score.cpp
+     Classes/scenes/GameScene/components/typer/Typer.cpp
+     Classes/scenes/GameOverScene/GameOverScene.cpp
      )
 list(APPEND GAME_HEADER
      Classes/AppDelegate.h
@@ -82,6 +84,8 @@ list(APPEND GAME_HEADER
      Classes/scenes/GameScene/components/enemy/Death.h
      Classes/scenes/GameScene/components/battery/Battery.h
      Classes/scenes/GameScene/components/score/Score.h
+     Classes/scenes/GameScene/components/typer/Typer.h
+     Classes/scenes/GameOverScene/GameOverScene.h
      )
 
 if(ANDROID)

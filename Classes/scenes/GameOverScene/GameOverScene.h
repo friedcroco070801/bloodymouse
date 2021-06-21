@@ -1,9 +1,9 @@
-#ifndef __MAIN_MENU_SCENE_H__
-#define __MAIN_MENU_SCENE_H__
+#ifndef __GAME_OVER_SCENE_H__
+#define __GAME_OVER_SCENE_H__
 
 #include "cocos2d.h"
 
-class MainMenuScene : public cocos2d::Scene
+class GameOverScene : public cocos2d::Scene
 {
 public:
     static cocos2d::Scene* createScene();
@@ -11,11 +11,11 @@ public:
     virtual bool init();
     
     // implement the "static create()" method manually
-    CREATE_FUNC(MainMenuScene);
+    CREATE_FUNC(GameOverScene);
 
 private:
     void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
-    void gotoGameScene();
+    void gotoMainMenuScene();
 };
 
-#endif // __MAIN_MENU_SCENE_H__
+#endif // __GAME_OVER_SCENE_H__
